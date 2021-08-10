@@ -1,0 +1,10 @@
+en:
+  label_hcs_cf_id: Custom Field
+  label_hcs_enabled: Enabled
+  activerecord:
+    errors:
+      models:
+        issue:
+          attributes:
+            base:
+              must_be_synced: Customer must contain current Helpdesk Contact

@@ -1,0 +1,9 @@
+<p>
+  <label><%= l(:label_hcs_enabled) %></label>
+  <%= check_box_tag 'settings[enabled]', 1, Setting.plugin_redmine_helpdesk_contact_sync['enabled'] %>
+</p>
+
+<p>
+  <label><%= l(:label_hcs_cf_id) %></label>
+  <%= select_tag 'settings[cf_id]', options_for_select(CustomField.where(field_format: :contact).pluck(:name, :id), Setting.plugin_redmine_helpdesk_contact_sync['cf_id']) %>
+</p>
