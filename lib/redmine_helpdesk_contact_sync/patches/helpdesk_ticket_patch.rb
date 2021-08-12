@@ -25,11 +25,17 @@ module RedmineHelpdeskContactSync
         end
 
         def sync_contact
-          cv_to_sync = issue.custom_values.find_by(
-            custom_field_id: cf_to_sync.id,
-            value: contact_id_previous_change[0].to_s
-          )
+          duplicated_cv = cv_to_sync_with_value(contact_id)
+          duplicated_cv&.destroy!
+          cv_to_sync = cv_to_sync_with_value(contact_id_previous_change[0])
           cv_to_sync&.update_columns(value: contact_id)
+        end
+
+        def cv_to_sync_with_value(id)
+          issue.custom_values.find_by(
+            custom_field_id: cf_to_sync.id,
+            value:           id.to_s
+          )
         end
       end
     end

@@ -57,13 +57,14 @@ module RedmineHelpdeskContactSync
 
         def must_be_synced?
           RedmineHelpdeskContactSync.enabled? &&
-            persisted? &&
+            project&.module_enabled?(:contacts_helpdesk) &&
             cf_to_sync &&
+            (persisted? || !cf_to_sync_blank?) &&
             helpdesk_ticket
         end
 
         def contact_synced
-          errors.add(:base, :must_be_synced) unless contact_synced?
+          errors.add(:base, :must_be_synced, contact: helpdesk_ticket.customer) unless contact_synced?
         end
 
         def contact_synced?
