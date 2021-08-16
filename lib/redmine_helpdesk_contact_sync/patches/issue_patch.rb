@@ -18,13 +18,21 @@ module RedmineHelpdeskContactSync
           @cf_to_sync ||= RedmineHelpdeskContactSync.cf_to_sync
         end
 
+        def cf_to_sync_available?
+          available_custom_fields.detect { |cf| cf.id == cf_to_sync_id }
+        end
+
         private
 
-        def sync_contact?
+        def sync_possible?
           RedmineHelpdeskContactSync.enabled? &&
+            cf_to_sync_available? &&
+            helpdesk_ticket
+        end
+
+        def sync_contact?
+          sync_possible? &&
             new_record? &&
-            helpdesk_ticket &&
-            cf_to_sync &&
             cf_to_sync_blank?
         end
 
@@ -56,11 +64,9 @@ module RedmineHelpdeskContactSync
         end
 
         def must_be_synced?
-          RedmineHelpdeskContactSync.enabled? &&
+          sync_possible? &&
             project&.module_enabled?(:contacts_helpdesk) &&
-            cf_to_sync &&
-            (persisted? || !cf_to_sync_blank?) &&
-            helpdesk_ticket
+            (persisted? || !cf_to_sync_blank?)
         end
 
         def contact_synced
