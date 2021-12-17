@@ -7,4 +7,4 @@ en:
         issue:
           attributes:
             base:
-              must_be_synced: "Customer must contain current Helpdesk Contact: %{contact}"
+              must_be_synced: "The field « Customer » in this form should contain at least the same contact as the field « Helpdesk Contact » (%{contact})"

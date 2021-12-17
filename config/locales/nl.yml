@@ -7,4 +7,4 @@ en:
         issue:
           attributes:
             base:
-              must_be_synced: "Customer moet het Helpdesk Contact bevatten: %{contact}"
+              must_be_synced: "Het veld « Customer » in dit formulier moet op zijn minst dezelfde contactpersoon bevatten als het veld « Helpdesk Contact » (%{contact})"
