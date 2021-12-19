@@ -1,0 +1,10 @@
+fr:
+  label_hcs_cf_id: Custom Field
+  label_hcs_enabled: Enabled
+  activerecord:
+    errors:
+      models:
+        issue:
+          attributes:
+            base:
+              must_be_synced: "Le champ « Customer » de ce formulaire devrait au minimum contenir la même personnage, que le champ « Helpdesk Contact » (%{contact})"
