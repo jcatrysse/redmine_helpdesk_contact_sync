@@ -39,7 +39,7 @@ module RedmineHelpdeskContactSync
 
         def cv_to_sync_with_value(id)
           issue.custom_values.find_by(
-            custom_field_id: cf_to_sync.id,
+            custom_field_id: cf_to_sync&.id,
             value:           id.to_s
           )
         end
