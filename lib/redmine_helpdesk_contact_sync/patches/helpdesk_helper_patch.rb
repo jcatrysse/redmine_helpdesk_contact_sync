@@ -42,6 +42,9 @@ module RedmineHelpdeskContactSync
             end
 
             s << javascript_include_tag('attachments')
+            if Redmine::Plugin.registered_plugins.keys.include?(:that_attachments_limit)
+              s << javascript_include_tag('attachments', :plugin => 'that_attachments_limit')
+            end
           end
 
           s.html_safe
