@@ -17,6 +17,7 @@ module RedmineHelpdeskContactSync
           cross_project_contacts = ContactsSetting.cross_project_contacts? || !!options.delete(:cross_project_contacts)
           contacts = [contacts] unless contacts.is_a?(Array)
 
+          name.chomp!('[]') if !!options[:multiple] && name.last(2) == '[]'
           s = select2_tag(
             name,
             options_for_select(contacts.map{ |c| [c.try(:name_with_company), c.try(:id)] }, contacts.map{ |c| c.try(:id) }),
@@ -56,6 +57,6 @@ module RedmineHelpdeskContactSync
   end
 end
 
-unless RedmineContacts::Helper.included_modules.include?(RedmineHelpdeskContactSync::Patches::ContactsHelperPatch)
-  RedmineContacts::Helper.include(RedmineHelpdeskContactSync::Patches::ContactsHelperPatch)
+unless RedmineContacts::Helper::CrmCalendarHelper.included_modules.include?(RedmineHelpdeskContactSync::Patches::ContactsHelperPatch)
+  RedmineContacts::Helper::CrmCalendarHelper.include(RedmineHelpdeskContactSync::Patches::ContactsHelperPatch)
 end
