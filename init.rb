@@ -4,7 +4,7 @@ Redmine::Plugin.register :redmine_helpdesk_contact_sync do
   name 'HD Contact Sync'
   author 'RedmineUP'
   description 'Allows to sync chosen Contact Custom Field with Helpdesk Contact'
-  version '0.0.5.1'
+  version '0.0.6'
   url 'https://www.redmineup.com'
   author_url 'mailto:support@redmineup.com'
 
@@ -12,6 +12,8 @@ Redmine::Plugin.register :redmine_helpdesk_contact_sync do
            partial: 'settings/hcs/general'
 end
 
-Rails.configuration.to_prepare do
-  require 'redmine_helpdesk_contact_sync'
+if Rails.configuration.respond_to?(:autoloader) && Rails.configuration.autoloader == :zeitwerk
+  Rails.autoloaders.each { |loader| loader.ignore(File.dirname(__FILE__) + '/lib') }
 end
+require File.dirname(__FILE__) + '/lib/redmine_helpdesk_contact_sync'
+
